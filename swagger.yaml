@@ -1,0 +1,325 @@
+openapi: 3.0.0
+
+info:
+  title: API Restaurante Medieval
+  version: 1.0.0
+  description: API REST para gestionar menú, usuarios, reservas y reseñas.
+
+servers:
+  - url: http://127.0.0.1:5000
+
+paths:
+
+  /menu:
+    get:
+      summary: Obtener menú completo
+      responses:
+        '200':
+          description: Lista de platos
+
+  /usuarios:
+    get:
+      summary: Obtener todos los usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+
+    post:
+      summary: Crear un usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+
+      responses:
+        '201':
+          description: Usuario creado correctamente
+
+  /usuarios/{id}:
+    get:
+      summary: Obtener usuario por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Usuario encontrado
+
+    put:
+      summary: Actualizar usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                email:
+                  type: string
+
+      responses:
+        '200':
+          description: Usuario actualizado
+
+    delete:
+      summary: Eliminar usuario
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Usuario eliminado
+
+  /login:
+    post:
+      summary: Iniciar sesión
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+      responses:
+        '200':
+          description: Login exitoso
+
+        '401':
+          description: Credenciales incorrectas
+
+  /reservas:
+    get:
+      summary: Obtener todas las reservas activas
+      description: Lista completa de reservas activas 
+
+      responses:
+        '200':
+          description: Lista de reservas activas
+        '500': 
+          description: Error interno del servidor
+
+    post:
+      summary: Crear nueva reserva
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id_usuario
+                - fecha_reserva
+                - cant_personas
+                - turno
+              properties:
+                id_usuario:
+                  type: integer 
+                fecha_reserva:
+                  type: string
+                  format: date
+                cant_personas: 
+                  type: integer
+                turno: 
+                  type: string
+                  enum:
+                    - "20-22"
+                    - "22-00"
+    
+      responses: 
+       '201':
+         description: Reserva creada correctamente
+       '400':
+         description: Turno no disponible o datos inválidos
+       '404':
+         description: Usuario no encontrado
+       '500':
+         description: Error interno del servidor
+  
+  /reservas/disponibilidad:
+    get: 
+      summary: Verificar disponibilidad de reservas por fecha
+      parameters:
+        - name: fecha
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+
+      responses:
+        '200':
+          description: Disponibilidad obtenida correctamente
+        '400':
+          description: Se requiere ingresar una fecha válida
+        '500':
+          description: Error interno del servidor
+
+  /reservas/{id}:
+    get:
+      summary: Obtener reserva por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Reserva encontrada
+        '404':
+          description: Reserva no encontrada
+
+    put:
+      summary: Actualizar reserva
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id_usuario
+                - fecha_reserva
+                - cant_personas
+                - turno
+              properties:
+                id_usuario:
+                  type: integer
+                fecha_reserva:
+                  type: string
+                  format: date
+                cant_personas:
+                  type: integer
+                turno:
+                  type: string
+                  enum:
+                    - "20-22"
+                    - "22-00"
+      
+      responses:
+        '200':
+          description: Reserva actualizada correctamente
+        '400':
+          description: Turno no disponible o datos inválidos
+        '500':
+          description: Error interno del servidor
+  
+  /reservas/cancelar/{id}:
+    get:
+      summary: Cancelar reserva
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Reserva cancelada correctamente
+        '400':
+          description: La reserva ya fue cancelada
+        '404':
+          description: Reserva no encontrada
+        '500':
+          description: Error interno del servidor
+
+  /reseñas:
+    get:
+      summary: Obtener todas las reseñas
+      responses:
+        '200':
+          description: Lista de reseñas
+        '500':
+          description: Error interno del servidor
+
+    post:
+      summary: Crear reseña
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id_reserva 
+                - comentario 
+                - puntaje_estrellas 
+                - id_plato
+              properties:
+                id_reserva:
+                  type: integer
+                comentario:
+                  type: string
+                puntaje_estrellas:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                id_plato: 
+                  type: integer
+
+      responses:
+        '201':
+          description: Reseña creada correctamente
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Reserva no encontrada
+        '500':
+          description: Error interno del servidor
+
+  /reseñas/{id}:
+    delete:
+      summary: Eliminar reseña
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Reseña eliminada correctamente
+        '500':
+          description: Error interno del servidor

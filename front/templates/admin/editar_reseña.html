@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Editar Reseña{% endblock %}
+{% block content %}
+
+<div class="admin-header">
+    <h2>Editar Reseña</h2>
+</div>
+
+<div class="admin-form">
+<form method="POST" class="medieval-form">
+    <div class="form-group">
+        <label for="puntaje_estrellas">
+            Puntaje
+        </label>
+        <select
+            name="puntaje_estrellas"
+            id="puntaje_estrellas"
+            required>
+            <option value="1"
+            {% if reseña.puntaje_estrellas == 1 %}selected{% endif %}>1 estrella
+            </option>
+            <option value="2"
+            {% if reseña.puntaje_estrellas == 2 %}selected{% endif %}>2 estrellas
+            </option>
+            <option value="3"
+            {% if reseña.puntaje_estrellas == 3 %}selected{% endif %}>3 estrellas
+            </option>
+            <option value="4"
+            {% if reseña.puntaje_estrellas == 4 %}selected{% endif %}>4 estrellas
+            </option>
+            <option value="5"
+            {% if reseña.puntaje_estrellas == 5 %}selected{% endif %}>5 estrellas
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="comentario">
+            Comentario
+        </label>
+        <textarea
+            id="comentario"
+            name="comentario"
+            required>{{ reseña.comentario }}</textarea>
+    </div>
+    <button type="submit" class="btn-save">Guardar Cambios</button>
+    <a href="{{ url_for('admin_reseñas') }}"
+       class="btn-cancel">Cancelar</a>
+</form>
+</div>
+
+{% endblock %}

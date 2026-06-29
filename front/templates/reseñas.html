@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Reseñas{% endblock %}
+
+{% block content %}
+
+<header class="reviews-header">
+    <h1>Reseñas</h1>
+    <p>Compartí tu experiencia en la taberna medieval.</p>
+</header>
+
+<section class="reviews-section">
+
+    <div class="parchment-card">
+
+        <h2>Dejá tu reseña</h2>
+
+
+        {% if error %}
+        <div class="error-message">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        <form method="POST" class="medieval-form" action="/reseñas">
+            
+            <div class="form-group">
+                <label for="id_reserva">Reserva</label>
+
+                <select name="id_reserva" id="id_reserva" required>
+                    <option value="">Seleccioná una reserva</option>
+
+                    {% for reserva in reservas_usuario %}
+                    <option value="{{ reserva.id_reserva }}">
+                        Reserva #{{ reserva.id_reserva }}
+                        - {{ reserva.fecha_reserva }}
+                        - Turno {{ reserva.turno }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="id_plato">Plato</label>
+
+                <select name="id_plato" id="id_plato" required>
+                    <option value="">Seleccioná un plato</option>
+
+                    {% for plato in platos %}
+                    <option value="{{ plato.id_plato }}">
+                        {{ plato.nombre_plato }}
+                    </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Puntaje</label>
+
+                <div class="rating-container">
+                    <span class="estrella" data-rating="1">★</span>
+                    <span class="estrella" data-rating="2">★</span>
+                    <span class="estrella" data-rating="3">★</span>
+                    <span class="estrella" data-rating="4">★</span>
+                    <span class="estrella" data-rating="5">★</span>
+                    
+                </div>
+                <input type="hidden" name="puntaje_estrellas" id="puntaje_estrellas">
+            </div>   
+
+            <div class="form-group">
+                <label for="comentario">Comentario</label>
+
+                <textarea
+                    id="comentario"
+                    name="comentario"
+                    placeholder="Contanos tu experiencia..."
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit">
+                Enviar reseña
+            </button>
+        </form>
+        
+        </div>
+    <div class="parchment-card filtro-reseñas">
+        <div class="form-group">
+            <label for="filtro-plato">Filtrar por plato</label>
+
+            <select id="filtro-plato">
+                <option value="all">Todos los platos</option>
+            {% for plato in platos %}
+            <option value="{{ plato.nombre_plato }}">
+                {{ plato.nombre_plato }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+  
+    <div id="contenedor-reseñas">
+
+        {% for reseña in reseñas %}
+
+        <div class="parchment-card reseña" info-plato="{{ reseña.nombre_plato }}">
+            <p><strong>Comentario:</strong> {{ reseña.comentario }}</p>
+            <p><strong>⭐</strong> {{ reseña.puntaje_estrellas }}</p>
+            {% if reseña.nombre_plato %}
+            <p><strong>Plato:</strong> {{ reseña.nombre_plato }}</p>
+            {% endif %}
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<script src="{{ url_for('static', filename='js/reseñas.js') }}"></script>
+
+{% endblock %}

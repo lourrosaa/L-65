@@ -1,0 +1,557 @@
+ScreenManager:
+    InicioScreen:
+        name: 'inicio'
+    LoginScreen:
+        name: 'login'
+    RegistroScreen:
+        name: 'registro'
+    PrincipalScreen:
+        name: 'principal'
+    CartaScreen:
+        name: 'carta'
+        id: carta_screen
+    ReservasScreen:
+        name: 'reservas'
+    ReseniaScreen:
+        name: 'resenias'
+
+<Label>:
+    font_name: 'MedievalSharp-Book'
+    
+
+<Button>:
+    font_name: 'MedievalSharp-Book'
+    background_color: [0.3, 0.2, 0.1, 1]
+
+<Screen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'assets/images/bar_vacio.jpg'
+        Color:
+            rgba: [0, 0, 0, 0.6]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<InicioScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [30, 50, 30, 50]
+        spacing: 20
+
+        Label:
+            text: '¡Bienvenidos al Restó!'
+            font_size: '36sp'
+            bold: True
+            color: [0.8,0.6,0.1,1]
+            outline_width: 1
+            outline_color: [0, 0, 0, 1]
+            size_hint_y: None
+            height: 80
+
+        Label:
+            text: '¿Qué deseas hacer hoy?'
+            bold: True
+            font_size: '20sp'
+            color: [0.8, 0.6, 0.1, 1]
+            outline_width: 1
+            outline_color: [0, 0, 0, 1]
+            size_hint_y: None
+            height: 40
+
+        Widget:
+
+        Button:
+            text: 'Ver Menú / Carta'
+            size_hint_y: None
+            height: 55
+            background_color: [0.3, 0.2, 0.1, 1]
+            on_press: root.ir_a_carta_publica()
+
+        Button:
+            text: 'Iniciar Sesión'
+            size_hint_y: None
+            height: 50
+            on_press: root.manager.current = 'login'
+
+        Button:
+            text: 'Crear una Cuenta'
+            size_hint_y: None
+            height: 50
+            on_press: root.manager.current = 'registro'
+            on_press: root.manager.current = 'registro'
+
+<CartaScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [15, 20, 15, 20]
+        spacing: 10
+
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            orientation: 'horizontal'
+
+            Label:
+                text: 'Nuestro Menú'
+                color: [0.8,0.6,0.1,1]
+                outline_width: 1
+                outline_color: [0, 0, 0, 1]
+                font_size: '24sp'
+                bold: True
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+            
+            Button:
+                text: 'Volver'
+                size_hint_x: None
+                width: 80
+                on_press: root.manager.current = 'inicio'
+        BoxLayout:
+            orientation:'horizontal'
+            size_hint_y: None
+            height: 44
+            spacing: 10
+
+            Button:
+                id: Plato Principal
+                text:'Plato Principal'
+                size_hint_y: None
+                #width: 74
+                height: 44
+                on_press: root.seleccionar_categoria(self)
+
+            Button:
+                id: Entrada
+                text:'Entradas'
+                size_hint_y: None
+                #width: 74
+                height: 44
+                on_press: root.seleccionar_categoria(self)
+            
+            Button:
+                id: Postres
+                text:'Postres'
+                size_hint_y: None
+                #width: 74
+                height: 44
+                on_press: root.seleccionar_categoria(self)
+
+            Button:
+                id: Bebidas
+                text:'Bebidas'
+                size_hint_y: None
+                #width: 74
+                height: 44
+                on_press: root.seleccionar_categoria(self)
+
+            Button:
+                id: Platos Populares
+                text:'Platos Populares'
+                size_hint_y: None
+                #width: 74
+                height: 44
+                on_press: root.seleccionar_categoria(self)
+
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            
+            BoxLayout:
+                id: lista_platos
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+
+<CartaItem@BoxLayout>:
+    texto: ""
+    imagen: ""
+
+    orientation: 'vertical'
+    size_hint_y: None
+    padding: 10
+    spacing: 5
+    height: self.minimum_height
+
+    canvas.before:
+        Color:
+            rgba: [0.169, 0.122, 0.078, 1]
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+        Color:
+            rgba: [0.29, 0.2, 0.14, 1]
+        Line:
+            rounded_rectangle: (self.x + 5, self.y + 5, self.width - 10, self.height - 10, 10)
+            width: 1.5
+
+    Label:
+        text: root.texto
+        text_size: self.width, None
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'top'
+        color: [0.8,0.6,0.1,1]
+    
+    Image:
+        source: root.imagen
+        size_hint_y: None
+        height: 150
+        allow_stretch: True
+        keep_ratio: True
+
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [30, 40, 30, 40]
+        spacing: 15
+
+        Label:
+            text: 'Iniciar Sesión'
+            font_size: '26sp'
+            bold: True
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: email_input
+            hint_text: 'Correo Electrónico'
+            multiline: False
+            size_hint_y: None
+            height: 44
+
+        TextInput:
+            id: password_input
+            hint_text: 'Contraseña'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 44
+
+        Button:
+            text: 'Ingresar'
+            size_hint_y: None
+            height: 50
+            on_press: root.procesar_login(email_input.text, password_input.text)
+
+        Button:
+            text: 'Volver al Inicio'
+            background_color: [0, 0, 0, 0]
+            color: [0.2, 0.6, 1, 1]
+            size_hint_y: None
+            height: 30
+            on_press: root.manager.current = 'inicio'
+
+        Label:
+            id: mensaje_estado
+            text: ''
+            color: [1, 0, 0, 1]
+            size_hint_y: None
+            height: 30
+
+<RegistroScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [30, 40, 30, 40]
+        spacing: 15
+
+        Label:
+            text: 'Crear Cuenta'
+            font_size: '26sp'
+            bold: True
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: nombre_input
+            hint_text: 'Nombre Completo'
+            multiline: False
+            size_hint_y: None
+            height: 44
+
+        TextInput:
+            id: email_registro
+            hint_text: 'Correo Electrónico'
+            multiline: False
+            size_hint_y: None
+            height: 44
+
+        TextInput:
+            id: password_registro
+            hint_text: 'Contraseña'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 44
+
+        Button:
+            text: 'Registrarme'
+            size_hint_y: None
+            height: 50
+            on_press: root.procesar_registro(nombre_input.text, email_registro.text, password_registro.text)
+
+        Button:
+            text: 'Volver al Inicio'
+            background_color: [0, 0, 0, 0]
+            color: [0.2, 0.6, 1, 1]
+            size_hint_y: None
+            height: 30
+            on_press: root.manager.current = 'inicio'
+
+        Label:
+            id: mensaje_registro
+            text: ''
+            color: [1, 0, 0, 1]
+            size_hint_y: None
+            height: 30
+
+<PrincipalScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [20, 20, 20, 20]
+        spacing: 20
+
+        Label:
+            id: bienvenido_label
+            text: '¡Hola!'
+            font_size: '24sp'
+            bold: True
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: 'Panel de Usuario Autenticado'
+            font_size: '16sp'
+            size_hint_y: None
+            height: 30
+#-------------------------------------BOTONRESERVAS------------------------------
+        Button:
+            text: 'Mis Reservas'
+            size_hint_y: None
+            height: 50
+            on_press: root.ir_a_reservas()
+
+        Button:
+            text: 'Mis Resenias'
+            size_hint_y: None
+            height: 50
+            on_press: root.ir_a_resenias()
+
+
+        Button:
+            text: 'Ver Menú / Carta'
+            size_hint_y: None
+            height: 55
+            background_color: [0.3, 0.2, 0.1, 1]
+            on_press: root.ir_a_carta_publica()
+        
+        Button:
+            text: 'Cerrar Sesión'
+            background_color: [1, 0.3, 0.3, 1]
+            size_hint_y: None
+            height: 50
+            on_press: root.cerrar_sesion()
+<ReservasScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [15, 20, 15, 20]
+        spacing: 15
+
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            orientation: 'horizontal'
+            Label:
+                text: 'Mis Reservaciones'
+                height: 45
+                color: [0.8,0.6,0.1,1]
+                outline_width: 1
+                font_size: '24sp'
+                bold: True
+                halign: 'left'
+            Button:
+                text:'Volver'
+                size_hint_x: None
+                width: 80
+                on_press: root.manager.current = 'principal'
+        TextInput:
+            id: cant_personas_input
+            hint_text: 'Ingrese la cantidad de personas'
+            multiline: False
+            size_hint_y: None
+            height: 44
+        
+        TextInput:
+            id: fecha_reserva_input
+            hint_text: 'YYYY-MM-DD'
+            multiline: False
+            size_hint_y: None
+            height: 44
+
+        Spinner:
+            id: turno_input
+            text: "Seleccionar opción"
+            values: ["20-22", "22-00"]
+            size_hint_y: None
+            height: 44
+            background_color: [1, 1, 1, 1]
+
+        Button:
+            text: 'Crear Reserva'
+            size_hint_y: None
+            height: 50
+            on_press: root.crear_reserva(cant_personas_input.text)
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            BoxLayout:
+                id: lista_reservas
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+        Label:
+            id: mensaje_reserva
+            text: ''
+            color: [1, 0, 0, 1]
+            size_hint_y: None
+            height: 30
+
+<ReservaItem@BoxLayout>:
+    texto: ""
+
+    orientation: 'vertical'
+    size_hint_y: None
+    padding: 10
+    spacing: 5
+    height: self.minimum_height
+
+    canvas.before:
+        Color:
+            rgba: [0.169, 0.122, 0.078, 1]
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+        Color:
+            rgba: [0.29, 0.2, 0.14, 1]
+        Line:
+            rounded_rectangle: (self.x + 5, self.y + 5, self.width - 10, self.height - 10, 10)
+            width: 1.5
+
+    Label:
+        text: root.texto
+        text_size: self.width, None
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'top'
+        color: [0.8,0.6,0.1,1]
+                    
+<ReseniaScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [15, 20, 15, 20]
+        spacing: 15
+
+        BoxLayout: 
+            size_hint_y: None
+            height: 50
+            orientation: 'horizontal'
+            Label:
+                text: 'Reseñas de Clientes' 
+                color: [0.8,0.6,0.1,1]
+                outline_width: 1
+                font_size: '24sp'
+                bold: True
+                halign: 'left'
+            Button:
+                text: 'Volver'
+                size_hint_x: None
+                width: 80
+                on_press: root.manager.current = 'principal'
+        
+        Spinner:
+            id: drop_reservas
+            text: "Eliga la reserva a reseñar"
+            size_hint_y: None
+            height: 44
+        
+        Spinner:
+            id: drop_platos
+            text: "Eliga el plato a reseñar"
+            size_hint_y: None
+            height: 44
+
+        Spinner:
+            id: puntuacion
+            text: "Eliga un puntaje del 1 al 5"
+            size_hint_y: None
+            height: 44
+
+        TextInput:
+            id: comentario_input
+            hint_text: 'Escriba un comentario sobre la comida'
+            size_hint_y: None
+            height:44
+
+        Button:
+            text: 'Confirmar Reseña'
+            size_hint_y: None
+            height: 44
+            on_press: root.crear_resenia(comentario_input.text)
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            BoxLayout:
+                id: lista_resenias
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+                
+        Label:
+            id: mensaje_resenia
+            text: ''
+            color: [1, 0, 0, 1]
+            size_hint_y: None
+            height: 30
+
+<ReseniaItem@BoxLayout>:
+    texto: ""
+
+    orientation: 'vertical'
+    size_hint_y: None
+    padding: 10
+    spacing: 5
+    height: self.minimum_height
+
+    canvas.before:
+        Color:
+            rgba: [0.169, 0.122, 0.078, 1]
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+        Color:
+            rgba: [0.29, 0.2, 0.14, 1]
+        Line:
+            rounded_rectangle: (self.x + 5, self.y + 5, self.width - 10, self.height - 10, 10)
+            width: 1.5
+
+    Label:
+        text: root.texto
+        text_size: self.width, None
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: 'center'
+        valign: 'top'
+        color: [0.8,0.6,0.1,1]

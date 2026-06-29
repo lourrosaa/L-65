@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: restaurante_db_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: restaurante_medieval
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # inicializa automaticamente la base de datos con el script SQL
+      - ./back/database:/docker-entrypoint-initdb.d
+
+  backend:
+    build: ./back
+    container_name: restaurante_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=rootpassword
+      - DB_NAME=restaurante_medieval
+    depends_on:
+      - db
+
+  frontend:
+    build: ./front
+    container_name: restaurante_frontend
+    restart: always
+    ports:
+      - "5001:5001"
+    environment:
+      - API_BACKEND=http://backend:5000
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Editar Plato{% endblock %}
+{% block content %}
+
+<div class="admin-header">
+    <h2>Editar Plato: {{ plato.nombre_plato }}</h2>
+</div>
+
+<div class="admin-form">
+    <form action="{{ url_for('admin_menu_editar', id_plato=plato.id_plato) }}" method="POST" class="medieval-form">
+        
+        <div class="form-group">
+            <label for="nombre">Nombre del plato:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ plato.nombre_plato }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" value="{{ plato.precio }}" step="0.01" required>
+        </div>
+        <div class="form-group">
+            <label for="categoria">Categoría</label>
+            <select name="categoria" id="categoria" required>  
+                <option value="Plato Principal">Plato Principal</option> 
+                <option value="Entradas">Entrada</option>
+                <option value="Bebidas">Bebida</option>
+                <option value="Postres">Postre</option>
+                <option value="Populares">Platos Populares</option>
+            </select>
+        </div>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required>{{ plato.descripcion }}</textarea>
+        </div>
+
+        <button type="submit" class="btn-save">Guardar Cambios</button>
+        <a href="{{ url_for('admin_menu') }}" class="btn-cancel">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

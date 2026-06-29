@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}administrar reservas{% endblock %}
+{% block content %}
+
+<header class="reviews-header">
+    <h1>administracion de las reservas</h1>
+    <p>gestion de las reservas</p>
+</header>
+
+<section class="reviews-section">
+    <div class="search-card">
+        <h2>reservas registradas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>cliente</th>
+                    <th>fecha y hora</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.nombre }}</td>
+                    <td>{{ reserva.fecha_reserva }} - {{ reserva.turno }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>no hay reservas.</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

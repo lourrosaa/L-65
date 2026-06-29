@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Registro Admin{% endblock %}
+{% block content %}
+
+<div class="admin-header">
+    <h2>registro de admin</h2>
+</div>
+
+<div class="admin-login">
+    <form method="POST" class="medieval-form">
+        <div class="form-group">
+            <label for="nombre">nombre</label>
+            <input 
+            type="text" 
+            id="nombre" 
+            name="nombre" 
+            required>
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required>
+        </div>
+        <div class="form-group">
+            <label for="password">contraseña</label>
+            <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required>
+        </div>
+        <div class="form-group">
+            <button 
+            type="submit">
+            registrarse
+        </button>
+    </div>
+</form>
+</div>
+{% endblock %}

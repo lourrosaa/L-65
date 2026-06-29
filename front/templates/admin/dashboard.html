@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Backoffice{% endblock %}
+{% block content %}
+
+<section class="admin-dashboard">
+    <h1>Backoffice</h1>
+
+    <section>
+        {% if not session.get('admin') %}
+            <a href="{{ url_for('admin_login') }}"><h2>login admins</h2></a>
+        {% else %}
+            <a href="{{ url_for('admin_menu') }}"><h2>menú</h2></a>
+            <a href="{{ url_for('admin_reservas') }}"><h2>reservas</h2></a>
+            <a href="{{ url_for('admin_reseñas') }}"><h2>reseñas</h2></a>
+            <a href="{{ url_for('logout') }}"><h2>Cerrar Sesión</h2></a>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

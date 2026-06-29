@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Historial de Reservas{% endblock %}
+{% block content %}
+
+<header>
+    <h1>Historial de Reservas</h1>
+    <p>Todas las reservas registradas en el sistema</p>
+</header>
+
+<section>
+    <div>
+      <h2>Lista completa de Reservas</h2>
+      {% for reserva in historial_reservas %}
+         <div>
+           <p>ID de Reserva: {{ reserva.id_reserva }}</p>
+           <p>Cliente: {{ reserva.nombre }}</p>
+           <p>Fecha: {{ reserva.fecha_reserva }}</p>
+           <p>Turno: {{ reserva.turno }}</p>
+           <p>Cantidad de personas: {{ reserva.cant_personas }}</p>
+         </div>
+         {% else %}
+         <p>No hay reservas registradas</p>
+         {% endfor %}
+    </div>
+</section>
+ 
+{% endblock %}

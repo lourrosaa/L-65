@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - La Taberna del Dragón{% endblock %}
+
+{% block content %}
+
+  <header id="inicio">
+    <h1>La Taberna del Dragón</h1>
+    <p>
+      Un rincón medieval donde los guerreros descansan, los bardos cantan
+      y los banquetes son dignos de reyes.
+    </p>
+    <a href="{{ url_for('menu') }}" class="boton" style="width: auto; max-width: 250px; text-align: center; text-decoration: none;">
+      entra al menu
+    </a>
+  </header>
+
+  <section id="historia">
+    <h2 class="titulo">Nuestra Historia</h2>
+
+    <div class="about">
+      <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1200&auto=format&fit=crop"
+        alt="Taberna medieval">
+
+      <div class="about-text">
+        <p>
+          Desde hace más de 300 inviernos, la Taberna del Dragón recibe viajeros,
+          mercenarios y nobles de todos los reinos. Inspirada en las antiguas
+          posadas medievales, nuestra cocina mezcla tradición, fuego y leyendas.
+        </p>
+
+        <p> 
+          Cada rincón está diseñado para transportarte a la época de castillos,
+          espadas y grandes banquetes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

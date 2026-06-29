@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Login Admin{% endblock %}
+{% block content %}
+
+<div class="admin-header">
+    <h2>login de admin</h2>
+</div>
+
+<div class="admin-login">
+    <form action="{{ url_for('admin_login') }}" method="POST" class="medieval-form">
+        <div class="form-group">
+            <label for="email">email</label>
+            <input
+            type="email"
+            id="email"
+            name="email"
+            required>
+        </div>
+        <div class="form-group">
+            <label for="password">contraseña</label>
+            <input 
+            type="password"
+            id="password"
+            name="password"
+            required>
+        </div>
+        <button type="submit">
+            ingresar
+        </button>
+</form>
+</div>
+{% endblock %}

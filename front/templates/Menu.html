@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Menu - La Taberna del Dragón
+{% endblock %}
+
+{% block content %}
+<body>
+    <header class="menu-header">
+        <h1>Menu Medieval</h1>
+        <p>Elige tu festín. Servimos los platos más sabrosos de los siete reinos.</p>
+    </header>
+
+    <div class="filtros">
+        <button class="boton-filtrar activo" data-filter="all">Todos los Banquetes</button>
+        <button class="boton-filtrar" data-filter="Plato Principal">Plato Principal</button>
+        <button class="boton-filtrar" data-filter="Entradas">Entrada</button>
+        <button class="boton-filtrar" data-filter="Bebidas">Bebida</button>
+        <button class="boton-filtrar" data-filter="Postres">Postre</button>
+        <button class="boton-filtrar" data-filter="Populares">Platos Populares</button>
+    </div>
+    <div id="contenedor-menu">
+    {% for plato in platos %}
+    <div class="carta-de-platos" comida-categoria="{{ plato.categoria }}" comida-popular="{% if plato.id_plato in ids_platos_populares %}True{% else %}False{% endif %}">
+        {% if plato.id_plato in ids_platos_populares %}
+        <span class="etiqueta-popular">¡Popular!</span>
+        {% endif %}
+        <h2>{{ plato.nombre_plato }}</h2>
+        <p>{{ plato.descripcion }}</p>
+        <p>{{ plato.precio }}</p>
+        <p>{{ plato.categoria }}</p>
+        <img src="{{ url_for('static', filename='images/' + plato.nombre_plato + '.jpg') }}" class="imagen-menu"></img>
+    </div>
+    {% endfor %}
+    </div>
+    <script src="{{url_for('static', filename='js/menu.js', _external=True)}}"></script>
+</body>
+
+{%endblock%}

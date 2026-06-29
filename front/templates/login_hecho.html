@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Inicio de sesión realizado{% endblock %}
+
+{% block content %}
+<div class="mensaje-ok">
+    <h1>Bienvenido</h1>
+    <p>Iniciaste sesión correctamente</p>
+    <a href="{{ url_for('index') }}" class="btn-inicio">
+        Ir al inicio
+    </a>
+
+</div>
+{% endblock %}
