@@ -15,77 +15,26 @@ INSERT INTO carta
 (nombre_plato, descripcion, precio, categoria)
 VALUES
 (
-'Hamburguesa del Rey',
-'Hamburguesa saludable con pan integral',
-8500,
-'Plato Principal'
+'L-65 Concentré',
+'Crema de coco pura extraída en primera prensa mecánica. Concentración grasa al 65%, textura densa y sedosidad natural.',
+18500,
+'Extractos Botanicos'
 ),
 (
-'Papas del Castillo',
-'Papas rusticas con especias medievales',
-4200,
-'Entradas'
+'L-65 Extrait Liquide',
+'Leche de coco raw obtenida por prensa simétrica y filtrada por ósmosis. Sin aditivos, gomas químicas ni conservantes.',
+12000,
+'Extractos Botanicos'
 ),
 (
-'Poción Frutal',
-'Jugo natural de frutos rojos',
-3000,
-'Bebidas'
+'L-65 Fibra Botánica',
+'Harina de coco fina derivada del deshidratado técnico del endospermo. Libre de gluten y de bajo impacto glucémico.',
+9500,
+'Molienda'
 ),
 (
-'Tarta del Guerrero',
-'Tarta integral de manzana',
-3900,
-'Postres'
-),
-(
-'Costillas del Palacio Real',
-'Costillas glaseadas con salsa de miel y especias',
-12500,
-'Plato Principal'
-),
-(
-'Sopa del Hechicero',
-'Sopa cremosa de calabaza y hierbas',
-4800,
-'Entradas'
-),
-(
-'Elixir de los Bosques',
-'Limonada con menta y frutos cítricos',
-3200,
-'Bebidas'
-),
-(
-'Banquete de la Reina',
-'Cheesecake de frutos rojos',
-4500,
-'Postres'
-),
-(
-'Pollo del Caballero',
-'Pechuga grillada con hierbas y vegetales',
-9800,
-'Plato Principal'
-),
-
-(
-'Anillos del Reino',
-'Aros de cebolla crocantes con salsa especial',
-4500,
-'Entradas'
-),
-
-(
-'Hidromiel Real',
-'Bebida refrescante inspirada en la hidromiel medieval',
-3500,
-'Bebidas'
-),
-
-(
-'Delicia de la Corona',
-'Brownie tibio con salsa de chocolate',
-4800,
-'Postres'
-);
+'L-65 System Box',
+'Asignación semanal cerrada que incluye un Concentré (200cc), dos Extrait Liquide (500cc) y una Fibra Botánica (250g).',
+45000,
+'Suscripción Privada'
+)
